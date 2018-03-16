@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+
+  database:
+    build: .
+    container_name: shell-mining
+    ports:
+      - 15432:5432
+    volumes:
+      - ./db:/var/lib/postgresql/data
