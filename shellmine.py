@@ -12,7 +12,7 @@ import dateparser
 import psycopg2
 
 
-PORT = os.getenv("SHELLMINE_PORT") or 15432
+PORT = str(os.getenv("SHELLMINE_PORT") or '15432')
 IMAGE = os.getenv("SHELLMINE_IMAGE") or "shell-mining"
 NAME_CONTAINER = os.getenv("SHELLMINE_CONTAINER") or "shell-mining"
 VOLUME_DB = os.getenv("SHELLMINE_DB") or os.path.expandvars("$HOME/.shell-mining")
