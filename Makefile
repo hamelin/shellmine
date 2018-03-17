@@ -2,6 +2,8 @@ IMAGE=$(or ${SHELLMINE_IMAGE},shell-mining)
 CONTAINER=$(or ${SHELLMINE_CONTAINER},shell-mining)
 VOLUME_DB=$(or ${SHELLMINE_DB},$$HOME/.shell-mining)
 
+PREFIX ?= /usr/local
+
 .PHONY: build
 build:
 	docker build -t "$(IMAGE)" .
@@ -20,4 +22,8 @@ kill:
 
 .PHONY: install
 install: build
-	echo "UNIMPLEMENTED YET" && exit 1
+	install -pd shellmine.py $(PREFIX)/bin/shellmine
+
+.PHONY: prompt
+prompt:
+	echo 'PROMPT_COMMAND=\'X=$$? && HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S  " history 1 | shellmine -x $$X\'' >> $$HOME/.profile
