@@ -278,3 +278,23 @@ Result:
   }
 ]
 ```
+
+## Database management
+
+The database runs from the Docker container `shell-mining`, unless it was named
+otherwise through setting environment variable `SHELLMINE_CONTAINER`. In any
+case, one may easily access the database in order to play with raw data or
+remove excess data. Simply run
+```sh
+docker exec -it -u postgres shell-mining psql --db shell-mining
+```
+To connect as the `shellmine` user (or whatever else was set up through the
+`SHELLMINE_USER` environment variable), append `--username shellmine` to this
+command.
+
+## Development setup
+
+I find that, in order to facilitate the hacking of this code, it feels best to
+set myself up with a directory of executables directly in my account, at
+`$HONE/usr/bin`, and symlink `shellmine.py` to `$HOME/usr/bin/shellmine`. Thus,
+changes to the source are deployed instantly and can be experimented with live.
