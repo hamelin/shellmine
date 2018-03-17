@@ -6,19 +6,15 @@ VOLUME_DB=$(or ${SHELLMINE_DB},$$HOME/.shell-mining)
 build:
 	docker build -t "$(IMAGE)" .
 
-run:
-	mkdir -p "$(VOLUME_DB)"
-	docker run --rm --detach \
-		--name "$(CONTAINER)" \
-		--volume "$(VOLUME_DB):/var/lib/postgresql/data" \
-		"$(IMAGE)"
-
+.PHONY: attach
 attach:
 	docker inspect "$(CONTAINER)" >/dev/null 2>&1 && docker attach "$(CONTAINER)"
 
+.PHONY: detach
 detach:
 	docker inspect "$(CONTAINER)" >/dev/null 2>&1 && pkill -f 'docker.*attach'
 
+.PHONY: kill
 kill:
 	docker inspect "$(CONTAINER)" >/dev/null 2>&1 && docker kill "$(CONTAINER)"
 
